@@ -1,0 +1,22 @@
+experiment: transunet_octa500
+seed: 0
+impl_source: "https://github.com/Beckschen/TransUNet"
+
+data:
+  root: ./datasets/OCTA-500
+  train_split: ./data/splits/octa500_train.txt
+  val_split:   ./data/splits/octa500_val.txt
+  test_split:  ./data/splits/octa500_test.txt
+  image_size: 512
+  clip_limit: 2.0
+  num_workers: 8
+
+model:
+  name: transunet
+  in_channels: 1
+
+loss:      { lambda1: 1.0, lambda2: 0.8, topo_iters: 10 }
+optim:     { optimizer: adam, lr: 1.0e-4, weight_decay: 1.0e-5, scheduler: cosine,
+             batch_size: 8, epochs: 100, early_stopping_patience: 15, amp: true }
+eval:      { threshold: 0.5, metrics: [DSC, IoU, SE, SP, HD95] }
+output_dir: ./runs/transunet_octa500

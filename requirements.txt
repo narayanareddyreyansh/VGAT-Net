@@ -1,0 +1,7 @@
+torch>=2.0
+numpy>=1.23
+opencv-python>=4.6
+scikit-image>=0.19
+scipy>=1.9
+PyYAML>=6.0
+tqdm>=4.64
